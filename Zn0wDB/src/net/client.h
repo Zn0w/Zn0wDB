@@ -10,6 +10,7 @@
 
 void startClient()
 {
+	std::cout << "The client has booted" << std::endl;
 	boost::asio::io_service ioService;
 	boost::asio::ip::tcp::resolver resolver(ioService);
 	boost::asio::ip::tcp::resolver::query query("localhost", "3457");

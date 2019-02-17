@@ -17,6 +17,8 @@ void startServer()
 	
 	while (true)
 	{
+		std::cout << "The server has booted" << std::endl;
+		
 		boost::system::error_code errorCode;
 		
 		boost::asio::ip::tcp::socket clientSocket(ioService);

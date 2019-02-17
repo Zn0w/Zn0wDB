@@ -1,9 +1,13 @@
+#include <thread>
+
 #include "net/server.h"
 #include "net/client.h"
 
 int main()
 {
-	startClient();
+	std::thread serverThread(startServer);
+	std::thread clientThread1(startClient);
+	std::thread clientThread2(startClient);
 
 	system("pause");
 
