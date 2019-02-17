@@ -24,11 +24,20 @@ void startServer()
 		boost::asio::ip::tcp::socket clientSocket(ioService);
 		acceptor.accept(clientSocket);
 		
-		char inputBuffer[256];
-		std::size_t inputSize = clientSocket.read_some(boost::asio::buffer(inputBuffer), errorCode);
-		std::string message(inputBuffer, inputBuffer + inputSize);
-		
-		std::cout << "A message from the client: " << message << std::endl;
+		while (true)
+		{
+			char inputBuffer[256];
+			std::size_t inputSize = clientSocket.read_some(boost::asio::buffer(inputBuffer), errorCode);
+			std::string message(inputBuffer, inputBuffer + inputSize);
+
+			std::cout << "A message from the client: " << message << std::endl;
+			
+			std::string msg = "ok";
+			if (message == "bye")
+				break;
+			else 
+				boost::asio::write(clientSocket, boost::asio::buffer(msg), errorCode);
+		}
 		
 		clientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, errorCode);
 		clientSocket.close();
