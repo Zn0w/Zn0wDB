@@ -11,8 +11,8 @@ void startServer()
 {
 	boost::asio::io_service ioService;
 	boost::asio::ip::tcp::acceptor acceptor(
-	ioService,
-	boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v6(), 3457)
+											ioService,
+											boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v6(), 3457)
 	);
 	
 	while (true)

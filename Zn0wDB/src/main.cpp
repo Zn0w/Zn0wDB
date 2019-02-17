@@ -9,7 +9,7 @@ int main()
 	std::thread clientThread1(startClient);
 	std::thread clientThread2(startClient);
 
-	system("pause");
+	serverThread.join();
 
 	return 0;
 }
