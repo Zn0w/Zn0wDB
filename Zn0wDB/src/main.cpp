@@ -5,9 +5,8 @@
 
 int main()
 {
-	std::thread serverThread(startServer);
-	std::thread clientThread1(startClient);
-	std::thread clientThread2(startClient);
+	std::thread serverThread(startServer, 3457);
+	std::thread clientThread1(startClient, "localhost", "3457");
 
 	serverThread.join();
 

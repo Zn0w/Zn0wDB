@@ -8,12 +8,12 @@
 //const char* ip = "localhost";
 //const char* port = "3457";
 
-void startClient()
+void startClient(const char* ip, const char* port)
 {
 	std::cout << "The client has booted" << std::endl;
 	boost::asio::io_service ioService;
 	boost::asio::ip::tcp::resolver resolver(ioService);
-	boost::asio::ip::tcp::resolver::query query("localhost", "3457");
+	boost::asio::ip::tcp::resolver::query query(ip, port);
 	boost::asio::ip::tcp::resolver::iterator endpointIterator = resolver.resolve(query);
 
 	boost::asio::ip::tcp::socket socket(ioService);

@@ -15,5 +15,5 @@ std::string listenToMessage(boost::asio::ip::tcp::socket* socket, boost::system:
 
 void sendMessage(boost::asio::ip::tcp::socket* socket, std::string message, boost::system::error_code errorCode)
 {
-	boost::asio::write(socket, boost::asio::buffer(message), errorCode);
+	boost::asio::write(*socket, boost::asio::buffer(message), errorCode);
 }
