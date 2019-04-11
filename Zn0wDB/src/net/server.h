@@ -5,6 +5,8 @@
 
 #include <boost/asio.hpp>
 
+#include "communication.h"
+
 //int port = 3457;
 bool client_running = false;
 
@@ -29,9 +31,10 @@ void startServer()
 
 		while (client_running)
 		{
-			char inputBuffer[256];
+			/*char inputBuffer[256];
 			std::size_t inputSize = clientSocket.read_some(boost::asio::buffer(inputBuffer), errorCode);
-			std::string message(inputBuffer, inputBuffer + inputSize);
+			std::string message(inputBuffer, inputBuffer + inputSize);*/
+			std::string message = listenToMessage(&clientSocket, errorCode);
 
 			std::cout << "A message from the client: " << message << std::endl;
 
@@ -39,7 +42,8 @@ void startServer()
 			if (message == "bye")
 				break;
 			else
-				boost::asio::write(clientSocket, boost::asio::buffer(msg), errorCode);
+				//boost::asio::write(clientSocket, boost::asio::buffer(msg), errorCode);
+				sendMessage(&clientSocket, msg, errorCode);
 
 			client_running = false;
 		}
