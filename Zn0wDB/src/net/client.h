@@ -31,7 +31,7 @@ void startClient()
 		std::string serverMessage(inputBuffer, inputBuffer + inputSize);
 
 		std::cout << serverMessage << std::endl;
-		
+
 		std::cin >> clientMessage;
 		boost::asio::write(socket, boost::asio::buffer(clientMessage), errorCode);
 	}

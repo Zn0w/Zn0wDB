@@ -6,39 +6,44 @@
 #include <boost/asio.hpp>
 
 //int port = 3457;
+bool client_running = false;
 
 void startServer()
 {
 	boost::asio::io_service ioService;
 	boost::asio::ip::tcp::acceptor acceptor(
-											ioService,
-											boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v6(), 3457)
+		ioService,
+		boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v6(), 3457)
 	);
+
+	std::cout << "The server has booted" << std::endl;
 	
 	while (true)
 	{
-		std::cout << "The server has booted" << std::endl;
-		
 		boost::system::error_code errorCode;
-		
+
 		boost::asio::ip::tcp::socket clientSocket(ioService);
 		acceptor.accept(clientSocket);
 		
-		while (true)
+		client_running = true;
+
+		while (client_running)
 		{
 			char inputBuffer[256];
 			std::size_t inputSize = clientSocket.read_some(boost::asio::buffer(inputBuffer), errorCode);
 			std::string message(inputBuffer, inputBuffer + inputSize);
 
 			std::cout << "A message from the client: " << message << std::endl;
-			
+
 			std::string msg = "ok";
 			if (message == "bye")
 				break;
-			else 
+			else
 				boost::asio::write(clientSocket, boost::asio::buffer(msg), errorCode);
+
+			client_running = false;
 		}
-		
+
 		clientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, errorCode);
 		clientSocket.close();
 	}

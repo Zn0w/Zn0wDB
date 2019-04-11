@@ -26,5 +26,8 @@
     <ClInclude Include="src\net\client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\net\communication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
