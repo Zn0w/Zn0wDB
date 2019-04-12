@@ -4,6 +4,7 @@
 #include "net/client.h"
 
 #include "utils/file_io.h"
+#include <iostream>
 
 int main()
 {
@@ -12,7 +13,12 @@ int main()
 
 	//serverThread.join();
 
-	read_file("src/main.cpp");
+	std::vector<std::string> file_contents = read_file("src/main.cpp");
+	for (std::string line : file_contents)
+		std::cout << line << std::endl;
+
+	write_file("test/test_file.zn0w_sch", "w", "Hello World");
+	write_file("test/test_file.zn0w_sch", "a", "Hello World");
 
 	system("pause");
 
