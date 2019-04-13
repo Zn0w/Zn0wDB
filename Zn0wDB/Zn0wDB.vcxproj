@@ -143,6 +143,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\elgine\column.h" />
+    <ClInclude Include="src\elgine\schema.h" />
+    <ClInclude Include="src\elgine\table.h" />
     <ClInclude Include="src\net\client.h" />
     <ClInclude Include="src\net\communication.h" />
     <ClInclude Include="src\net\server.h" />

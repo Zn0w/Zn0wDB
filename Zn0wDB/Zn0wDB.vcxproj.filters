@@ -32,5 +32,14 @@
     <ClInclude Include="src\utils\file_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\elgine\schema.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\elgine\table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\elgine\column.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

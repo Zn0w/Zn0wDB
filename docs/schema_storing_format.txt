@@ -10,7 +10,7 @@ File path of the schema data (the actual data in the form of it's tables)
 * Meta-data:
 TABLE
 	NAME table_name
-		COLUMN col_name col_type (col_conditions, col_default_values, ...)
+		COLUMN col_name col_datatype (col_conditions, col_default_values, ...)
 		COLUMN ...
 END
 TABLE
@@ -22,5 +22,5 @@ END
 * Character set encoding possible values: (will be appended in the development process)
 	utf8 - UTF-8 Unicode
 
-* Column conditions and default values: (will be appended in the development process)
+* Column conditions and default values (attributes): (will be appended in the development process)
 	notnull  - the field cannot be null
