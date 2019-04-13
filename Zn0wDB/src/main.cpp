@@ -6,6 +6,7 @@
 #include "utils/file_io.h"
 #include <iostream>
 
+
 int main()
 {
 	//std::thread serverThread(startServer, 3457);
@@ -17,8 +18,8 @@ int main()
 	for (std::string line : file_contents)
 		std::cout << line << std::endl;
 
-	write_file("test/test_file.zn0w_sch", "w", "Hello World");
-	write_file("test/test_file.zn0w_sch", "a", "Hello World");
+	write_file("test/test_file.zn0w_sch", "Hello World\n", false);
+	write_file("test/test_file.zn0w_sch", "Hello World", true);
 
 	system("pause");
 

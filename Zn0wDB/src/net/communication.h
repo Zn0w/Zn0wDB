@@ -4,6 +4,7 @@
 
 #include <boost/asio.hpp>
 
+
 std::string listenToMessage(boost::asio::ip::tcp::socket* socket, boost::system::error_code errorCode)
 {
 	char inputBuffer[256];

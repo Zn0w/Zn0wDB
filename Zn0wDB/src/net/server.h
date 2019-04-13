@@ -7,8 +7,9 @@
 
 #include "communication.h"
 
-//int port = 3457;
+
 bool client_running = false;
+
 
 void startServer(int port)
 {

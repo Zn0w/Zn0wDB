@@ -5,8 +5,6 @@
 
 #include <boost/asio.hpp>
 
-//const char* ip = "localhost";
-//const char* port = "3457";
 
 void startClient(const char* ip, const char* port)
 {

@@ -5,7 +5,9 @@
 #include <string>
 #include <vector>
 
+
 #define MINIMUM_STRINGS 4					// corresponds to the schema storing format (see docs) - the required data
+
 
 std::vector<std::string> read_file(const char* filepath)
 {
@@ -26,22 +28,19 @@ std::vector<std::string> read_file(const char* filepath)
 	{
 		result.push_back(line);
 	}
-	/*int last_newline_pos = -1;
-	for (int i = 0; i < file_data.length(); i++)
-	{
-		if (file_data.at(i) == '\n')
-		{
-			result.push_back(file_data.substr(last_newline_pos + 1, i));
-			last_newline_pos = i;
-		}
-	}*/
 
 	return result;
 }
 
-void write_file(const char* filepath, const char* mode, const char* data)
+void write_file(const char* filepath, const char* data, bool append)
 {
-	FILE* file = fopen(filepath, mode);
+	FILE* file;
+	
+	if (append)
+		file = fopen(filepath, "a");
+	else
+		file = fopen(filepath, "w");
+
 	fprintf(file, data);
 	fclose(file);
 }
