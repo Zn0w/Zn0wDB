@@ -22,7 +22,7 @@ void sendMessage(boost::asio::ip::tcp::socket* socket, std::string message, boos
 	boost::asio::write(*socket, boost::asio::buffer(message), errorCode);
 }
 
-std::vector<std::string> loadData(boost::asio::ip::tcp::socket* socket, const char* path)
+/*std::vector<std::string> loadData(boost::asio::ip::tcp::socket* socket, const char* path)
 {
 	
-}
+}*/

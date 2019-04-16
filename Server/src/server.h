@@ -5,11 +5,26 @@
 
 #include <boost/asio.hpp>
 
-#include "communication.h"
-
 
 bool client_running = false;
 
+
+/*void getFileLength(const char* filepath)
+{
+	FILE* file = fopen(filepath, "rt");		
+	if (file)
+	{
+		fseek(file, 0, SEEK_END);
+		unsigned int length = ftell(file);
+		char* data = (char*)malloc(length + 1);
+		memset(data, 0, length + 1);
+		fseek(file, 0, SEEK_SET);
+		fread(data, sizeof(char), length, file);
+		fclose(file);
+	}
+	else
+		sendMessage(&socket, "file_load_fail", errorCode);
+}*/
 
 void startServer(int port)
 {
@@ -30,19 +45,17 @@ void startServer(int port)
 		
 		client_running = true;
 
+		char inputBuffer[256];
+
 		while (client_running)
 		{
-			std::string message = listenToMessage(&clientSocket, errorCode);
+			std::size_t inputSize = clientSocket.read_some(boost::asio::buffer(inputBuffer), errorCode);
+			std::string message(inputBuffer, inputBuffer + inputSize);
 
-			std::cout << "A message from the client: " << message << std::endl;
+			std::cout << "Server: A message from the client: " << message << std::endl;
 
-			std::string msg = "ok";
 			if (message == "bye")
-				break;
-			else
-				sendMessage(&clientSocket, msg, errorCode);
-
-			client_running = false;
+				client_running = false;
 		}
 
 		clientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, errorCode);
