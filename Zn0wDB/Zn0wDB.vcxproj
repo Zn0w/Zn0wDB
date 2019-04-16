@@ -146,7 +146,6 @@
     <ClInclude Include="src\engine\column.h" />
     <ClInclude Include="src\engine\schema.h" />
     <ClInclude Include="src\engine\table.h" />
-    <ClInclude Include="src\net\communication.h" />
     <ClInclude Include="src\utils\file_io.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

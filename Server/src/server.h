@@ -36,29 +36,32 @@ void startServer(int port)
 
 	std::cout << "The server has booted" << std::endl;
 	
-	while (true)
-	{
+	//while (true)
+	//{
 		boost::system::error_code errorCode;
 
 		boost::asio::ip::tcp::socket clientSocket(ioService);
 		acceptor.accept(clientSocket);
 		
-		client_running = true;
-
-		char inputBuffer[256];
-
-		while (client_running)
+		FILE* file = fopen("test.txt", "rt");
+		if (file)
 		{
-			std::size_t inputSize = clientSocket.read_some(boost::asio::buffer(inputBuffer), errorCode);
-			std::string message(inputBuffer, inputBuffer + inputSize);
+			fseek(file, 0, SEEK_END);
+			unsigned int length = ftell(file);
+			char* data = (char*)malloc(length + 1);
+			memset(data, 0, length + 1);
+			fseek(file, 0, SEEK_SET);
+			fread(data, sizeof(char), length, file);
+			fclose(file);
 
-			std::cout << "Server: A message from the client: " << message << std::endl;
+			std::string file_contents(data);
 
-			if (message == "bye")
-				client_running = false;
+			boost::asio::write(clientSocket, boost::asio::buffer(file_contents), errorCode);
 		}
+		else
+			boost::asio::write(clientSocket, boost::asio::buffer("file_load_fail"), errorCode);
 
 		clientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, errorCode);
 		clientSocket.close();
-	}
+	//}
 }

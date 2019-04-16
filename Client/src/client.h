@@ -20,19 +20,19 @@ void startClient(const char* ip, const char* port)
 
 	std::cout << "The client has booted" << std::endl;
 
-	std::string clientMessage = "Hi!";
-	boost::asio::write(socket, boost::asio::buffer(clientMessage), errorCode);
+	//std::string clientMessage = "Hi!";
+	//boost::asio::write(socket, boost::asio::buffer(clientMessage), errorCode);
 
 	char inputBuffer[256];
-
+	std::size_t inputSize;
 	while (true)
 	{
-		std::cin >> clientMessage;
-		boost::asio::write(socket, boost::asio::buffer(clientMessage), errorCode);
-		
-		//std::size_t inputSize = socket.read_some(boost::asio::buffer(inputBuffer), errorCode);
-		//std::string serverMessage(inputBuffer, inputBuffer + inputSize);
+		inputSize = socket.read_some(boost::asio::buffer(inputBuffer), errorCode);
+		if (inputSize)
+		{
+			std::string serverMessage(inputBuffer, inputBuffer + inputSize);
 
-		//std::cout << serverMessage << std::endl;
+			std::cout << serverMessage << std::endl;
+		}
 	}
 }
