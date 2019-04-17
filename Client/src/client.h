@@ -32,7 +32,7 @@ void startClient(const char* ip, const char* port)
 		{
 			std::string serverMessage(inputBuffer, inputBuffer + inputSize);
 
-			std::cout << serverMessage << std::endl;
+			std::cout << serverMessage;
 		}
 	}
 }
