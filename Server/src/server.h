@@ -54,11 +54,11 @@ void startServer(int port)
 			fread(data, sizeof(char), length, file);
 			fclose(file);
 
+			char* old_data_ptr = data;
+
 			if (length / 1024 > 1.0f)
 				for (int i = 0; i < length / 1024 + 1; i++)
 				{
-					//char* old_data_ptr = data;
-					//std::cout << length - 1024 * i << "  " << i << std::endl;
 					if (length - 1024 * i < 1024)
 					{
 						data = data + 1024;
@@ -74,18 +74,14 @@ void startServer(int port)
 						data = data + 1024;
 					std::string packet(data, 1024);
 					boost::asio::write(clientSocket, boost::asio::buffer(packet), errorCode);
-					//std::cout << packet << std::endl;
-					//std::string message("\npacket sent\n");
-					//boost::asio::write(clientSocket, boost::asio::buffer(message), errorCode);
-
-					//free(old_data_ptr);
 				}
 			else
 			{
 				std::string file_contents(data);
 				boost::asio::write(clientSocket, boost::asio::buffer(file_contents), errorCode);
-				//free(data);
 			}
+
+			free(old_data_ptr);
 		}
 		else
 			boost::asio::write(clientSocket, boost::asio::buffer("file_load_fail"), errorCode);
