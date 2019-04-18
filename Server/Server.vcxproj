@@ -70,14 +70,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\server</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\server</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\server\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\server\</IntDir>
     <IncludePath>D:\work\libraries\C++\boost_1_69_0;$(IncludePath)</IncludePath>
     <LibraryPath>D:\work\libraries\C++\boost_1_69_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\server</OutDir>
-    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\server</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\server\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\server\</IntDir>
     <IncludePath>D:\work\libraries\C++\boost_1_69_0;$(IncludePath)</IncludePath>
     <LibraryPath>D:\work\libraries\C++\boost_1_69_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
