@@ -5,6 +5,35 @@
 
 bool running;
 
+//HMENU menu;		// A window's main menu (on the top of a screen)
+
+enum MenuItem
+{
+	MENU_FILE = 1,	// New, Open, Close, Save, Save As
+	MENU_EDIT,		// Cut, Copy, Paste, Delete, Undo
+	MENU_VIEW,		// Selection of menus
+	MENU_DATABASE,	// Close, New, Open, Exit
+	MENU_SETTINGS,	// Opens the settings window
+	MENU_TOOLS,		// Opens tools window, or shows the selection of tools
+	MENU_SCRIPTING,	// New Script, Openg Script, Run Script File
+	MENU_HELP		// Opens a help window
+};
+
+
+void initWindow(HWND handle_window)
+{
+	HMENU menu = CreateMenu();
+	AppendMenu(menu, MF_STRING, MENU_FILE, "File");
+	AppendMenu(menu, MF_STRING, MENU_EDIT, "Edit");
+	AppendMenu(menu, MF_STRING, MENU_VIEW, "View");
+	AppendMenu(menu, MF_STRING, MENU_DATABASE, "Database");
+	AppendMenu(menu, MF_STRING, MENU_SETTINGS, "Settings");
+	AppendMenu(menu, MF_STRING, MENU_TOOLS, "Tools");
+	AppendMenu(menu, MF_STRING, MENU_SCRIPTING, "Scripting");
+	AppendMenu(menu, MF_STRING, MENU_HELP, "Help");
+	SetMenu(handle_window, menu);
+}
+
 
 LRESULT CALLBACK WindowProc(
 	HWND   handle_window,
@@ -15,6 +44,59 @@ LRESULT CALLBACK WindowProc(
 {	
 	switch (message)
 	{
+		case WM_CREATE :
+		{
+			initWindow(handle_window);
+			OutputDebugString("WM_CREATE\n");
+		}break;
+
+		case WM_COMMAND:
+		{
+			switch (wParam)
+			{
+				case (WPARAM) MENU_FILE :
+				{
+					MessageBeep(MB_OK);
+				}break;
+
+				case MENU_EDIT:
+				{
+
+				}break;
+
+				case MENU_VIEW:
+				{
+
+				}break;
+
+				case MENU_DATABASE:
+				{
+
+				}break;
+
+				case MENU_SETTINGS:
+				{
+
+				}break;
+
+				case MENU_TOOLS:
+				{
+
+				}break;
+
+				case MENU_SCRIPTING:
+				{
+
+				}break;
+
+				case MENU_HELP:
+				{
+
+				}break;
+			}
+			OutputDebugString("WM_COMMAND\n");
+		}break;
+		
 		case WM_DESTROY :
 		{
 			running = false;
