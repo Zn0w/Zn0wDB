@@ -35,7 +35,7 @@ LRESULT CALLBACK WindowProc(
 
 		default:
 		{
-			return DefWindowProcW(handle_window, message, wParam, lParam);
+			return DefWindowProcA(handle_window, message, wParam, lParam);
 		}break;
 	}
 }
@@ -49,21 +49,20 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous_instance, LPSTR cmd, i
 	window_data.height = 250;
 	window_data.title = "Test Window Title";
 
-	// 'W' in the end of WNDCLASS means to handle strings in window as unicode
-	WNDCLASSW window_class = {};	// initializes every element of windows class  to 0
+	// 'A' in the end of WNDCLASS means to handle strings in window as ansi code
+	WNDCLASSA window_class = {};	// initializes every element of windows class  to 0
 
 	window_class.hbrBackground = (HBRUSH) COLOR_WINDOW;		// Set a default window color
 	window_class.hCursor = LoadCursor(NULL, IDC_ARROW);	// Enable a cursor in window
 	window_class.lpfnWndProc = WindowProc;
 	window_class.hInstance = instance;
-	window_class.lpszClassName = (LPCWSTR) "Zn0wDBWindowClass";
+	window_class.lpszClassName = "Zn0wDBWindowClass";
 
-	if (RegisterClassW(&window_class))
+	if (RegisterClassA(&window_class))
 	{
-		HWND window_handle = CreateWindowW(
-			(LPCWSTR) "Zn0wDBWindowClass",
-			//(LPCWSTR) "Test Window Title", //window_data.title,
-			L"Test Window Title",
+		HWND window_handle = CreateWindowA(
+			"Zn0wDBWindowClass",
+			window_data.title,
 			WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 			window_data.x,
 			window_data.y,
@@ -82,10 +81,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous_instance, LPSTR cmd, i
 			while (running)
 			{
 				MSG message;
-				if (GetMessage(&message, NULL, NULL, NULL))
+				if (GetMessageA(&message, NULL, NULL, NULL))
 				{
 					TranslateMessage(&message);
-					DispatchMessage(&message);		// Send message to the WindowProc
+					DispatchMessageA(&message);		// Send message to the WindowProc
 				}
 				else
 				{
