@@ -7,6 +7,19 @@ bool running;
 
 //HMENU menu;		// A window's main menu (on the top of a screen)
 
+int main()
+{
+	//zn::Frame frame;
+	std::vector<int> nums;
+	nums.push_back(2);
+	nums.push_back(3);
+	nums.push_back(5);
+	nums.push_back(8);
+	printf("%d\n", nums.at(5));
+	system("pause");
+}
+
+#if 0
 enum MenuItem
 {
 	MENU_FILE = 1,	// New, Open, Close, Save, Save As
@@ -179,3 +192,4 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previous_instance, LPSTR cmd, i
 	
 	return 0;
 }
+#endif
