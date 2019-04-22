@@ -2,37 +2,31 @@
 
 #include <vector>
 
+#include "layout.h"
 #include "element.h"
 
 
 namespace zn {
 
-	enum Layout
-	{
-		NO,
-		SEQUENCE_X,
-		SEQUENCE_Y,
-	};
-
 	class Frame
 	{
 	private:
-		Layout layout;
+		Layout* layout;
 		std::vector<Element> elements;
 
 	public:
 		Frame()
 		{
-			layout = NO;
+			//layout = new AbsoluteLayout();
 		}
 		
-		Frame(Layout l)
+		Frame(Layout* l)		// This constructor must be used only with new keyword
 		{
 			layout = l;
 		}
 
-		inline void setLayout(Layout l) { layout = l; }
-		inline Layout getLayout() { return layout; }
+		inline void setLayout(Layout* l) { delete layout;  layout = l; }	// This must be used only with new keyword
+		inline Layout* getLayout() { return layout; }
 
 		void addElement(Element e)
 		{
