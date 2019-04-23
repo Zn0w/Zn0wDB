@@ -13,11 +13,12 @@ namespace zn {
 	private:
 		Layout* layout;
 		std::vector<Element> elements;
+		int width, height;
 
 	public:
 		Frame()
 		{
-			//layout = new AbsoluteLayout();
+			layout = new AbsoluteLayout();
 		}
 		
 		Frame(Layout* l)		// This constructor must be used only with new keyword
@@ -27,6 +28,10 @@ namespace zn {
 
 		inline void setLayout(Layout* l) { delete layout;  layout = l; }	// This must be used only with new keyword
 		inline Layout* getLayout() { return layout; }
+
+		inline void setSize(int w, int h) { width = w, height = h; }
+		inline int getWidth() { return width; }
+		inline int getHeight() { return height; }
 
 		void addElement(Element e)
 		{

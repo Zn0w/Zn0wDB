@@ -7,7 +7,7 @@ namespace zn {
 	class Window
 	{
 	private:
-		int x, y, width, height;
+		int x, y, width, height;		// If the width and/or height of a window changes, currentFrame->setSize(newWidth, newHeight) should be called
 		const char* title;
 		Frame* currentFrame;
 		bool visible;
@@ -31,7 +31,11 @@ namespace zn {
 		inline void setWidth(int s_width) { width = s_width; }
 		inline void setHeight(int s_height) { height = s_height; }
 
-		inline void setFrame(Frame* frame) { currentFrame = frame; }
+		void setFrame(Frame* frame)
+		{
+			currentFrame = frame;
+			currentFrame->setSize(width, height);
+		}
 		inline Frame* getFrame() { return currentFrame; }
 
 		inline void setVisible(bool v) { visible = v; }

@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="src\element.h" />
     <ClInclude Include="src\frame.h" />
+    <ClInclude Include="src\layout.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
