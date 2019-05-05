@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
+#include <sstream>
 
+
+namespace zn0w_utils {
 
 #define MINIMUM_STRINGS 4					// corresponds to the schema storing format (see docs) - the required data
 
@@ -41,6 +44,12 @@ void write_file(const char* filepath, const char* data, bool append)
 	else
 		file = fopen(filepath, "w");
 
-	fprintf(file, data);
+	if (file)
+		fprintf(file, data);
+	else
+		printf("Failed to write file %s\n", filepath);
+	
 	fclose(file);
+}
+
 }
