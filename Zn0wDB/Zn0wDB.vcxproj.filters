@@ -32,5 +32,11 @@
     <ClInclude Include="src\engine\table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\sql_lex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
