@@ -148,6 +148,7 @@
     <ClInclude Include="src\engine\schema.h" />
     <ClInclude Include="src\engine\table.h" />
     <ClInclude Include="src\sql_lex.h" />
+    <ClInclude Include="src\sql_parse.h" />
     <ClInclude Include="src\table.h" />
     <ClInclude Include="src\utils\file_io.h" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include <string>
 
 #include "sql_lex.h"
+#include "sql_parse.h"
 
 
 struct CommandResult
@@ -48,6 +49,10 @@ QueryResult process_query(std::string query)
 	QueryResult result = { true, "" };
 
 	std::vector<Token> tokens = lex(query);
+
+	ParseResult parse_result = parse(tokens);
+	if (parse_result.success == false)
+		std::cout << "SQL parse error: " << parse_result.message << std::endl;
 
 	return result;
 }

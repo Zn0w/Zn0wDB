@@ -41,5 +41,8 @@
     <ClInclude Include="src\database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\sql_parse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
