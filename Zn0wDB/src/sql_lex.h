@@ -20,6 +20,7 @@ enum TokenType
 	TABLE_NAME,
 	WHERE_CLAUSE,
 	COLUMN_NAME,
+	COLUMN_TYPE,
 	VALUE,
 	
 	UNRECOGNIZED
@@ -55,6 +56,15 @@ std::vector<Token> lex(std::string& query)
 				tokens.push_back({ CREATE_TABLE_STATEMENT, "" });
 				word = strtok(0, " ()\n\t;");
 				tokens.push_back({ TABLE_NAME, word });
+
+				word = strtok(0, " ()\n\t,");
+				while (word != 0 && strcmp(word, ";") != 0)
+				{
+					tokens.push_back({ COLUMN_NAME, word });
+					word = strtok(0, " ()\n\t,");
+					tokens.push_back({ COLUMN_TYPE, word });
+					word = strtok(0, " ()\n\t,");
+				}
 			}
 			else
 				tokens.push_back({ UNRECOGNIZED, word });

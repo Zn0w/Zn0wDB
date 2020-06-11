@@ -143,6 +143,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\database.h" />
     <ClInclude Include="src\engine\column.h" />
     <ClInclude Include="src\engine\schema.h" />
     <ClInclude Include="src\engine\table.h" />
