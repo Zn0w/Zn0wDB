@@ -43,7 +43,7 @@ CommandResult process_command(std::string& command)
 }
 
 // processes SQL query
-QueryResult process_query(std::string& query)
+QueryResult process_query(std::string query)
 {
 	QueryResult result = { true, "" };
 
@@ -64,7 +64,7 @@ int main()
 	while (running)
 	{
 		std::cout << "$ ";
-		std::cin >> user_input;
+		std::getline(std::cin, user_input);
 
 		if (user_input.at(0) == '/')
 		{

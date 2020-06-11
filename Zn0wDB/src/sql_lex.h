@@ -13,11 +13,15 @@ enum TokenType
 	INSERT_STATEMENT,
 	DELETE_STATEMENT,
 	UPDATE_STATEMENT,
+	DROP_STATEMENT,
+	ALTER_STATEMENT,
+
 	DATABASE_NAME,
 	TABLE_NAME,
 	WHERE_CLAUSE,
 	COLUMN_NAME,
 	VALUE,
+	
 	UNRECOGNIZED
 };
 
@@ -98,15 +102,69 @@ std::vector<Token> lex(std::string& query)
 			while (word && strcmp(word, "values") != 0)
 			{
 				tokens.push_back({ COLUMN_NAME, word });
-				word = strtok(0, " ()\n\t;");
+				word = strtok(0, " ()\n\t;,");
 			}
 
 			word = strtok(0, " ()\n\t;,\'");
 			while (word)
 			{
 				tokens.push_back({ VALUE, word });
-				word = strtok(0, " ()\n\t;");
+				word = strtok(0, " ()\n\t;,\'");
 			}
+		}
+		else if (strcmp(word, "delete") == 0)
+		{
+			tokens.push_back({ DELETE_STATEMENT, "" });
+			
+			word = strtok(0, " ()\n\t;");
+			if (strcmp(word, "from") != 0)
+			{
+				tokens.push_back({ UNRECOGNIZED, word });
+				continue;
+			}
+
+			word = strtok(0, " ()\n\t;");
+			tokens.push_back({ TABLE_NAME, word });
+
+			word = strtok(0, " ()\n\t;");
+			if (word != 0 && strcmp(word, "where") == 0)
+			{
+				word = strtok(0, " ");
+				tokens.push_back({ WHERE_CLAUSE, word });
+			}
+		}
+		else if (strcmp(word, "update") == 0)
+		{
+			tokens.push_back({ UPDATE_STATEMENT, "" });
+			
+			word = strtok(0, " ()\n\t;");
+			tokens.push_back({ TABLE_NAME, word });
+
+			word = strtok(0, " ()\n\t;");
+			if (strcmp(word, "set") != 0)
+			{
+				tokens.push_back({ UNRECOGNIZED, word });
+				continue;
+			}
+
+			word = strtok(0, " ()\n\t;,=");
+			while (word && strcmp(word, "where") != 0)
+			{
+				tokens.push_back({ COLUMN_NAME, word });
+				
+				word = strtok(0, " ()\n\t;,=\'");
+				tokens.push_back({ VALUE, word });
+
+				word = strtok(0, " ()\n\t;,\'");
+			}
+
+			if (word != 0 && strcmp(word, "where") == 0)
+			{
+				word = strtok(0, " ");
+				tokens.push_back({ WHERE_CLAUSE, word });
+			}
+			else
+				tokens.push_back({ UNRECOGNIZED, word });
 		}
 		else
 		{
@@ -115,4 +173,6 @@ std::vector<Token> lex(std::string& query)
 
 		word = strtok(0, " ()\n\t;");
 	}
+
+	return tokens;
 }
