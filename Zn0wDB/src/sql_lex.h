@@ -33,6 +33,14 @@ struct Token
 };
 
 
+void add_new_token(std::vector<Token>& tokens, TokenType type, const char* literal)
+{
+	if (literal == 0)
+		tokens.push_back({ UNRECOGNIZED, "" });
+	else
+		tokens.push_back({ type, literal });
+}
+
 std::vector<Token> lex(std::string& query)
 {
 	std::vector<Token> tokens;
@@ -47,123 +55,123 @@ std::vector<Token> lex(std::string& query)
 			word = strtok(0, " ()\n\t;");
 			if (strcmp(word, "database") == 0)
 			{
-				tokens.push_back({ CREATE_DATABASE_STATEMENT, "" });
+				add_new_token(tokens, CREATE_DATABASE_STATEMENT, "");
 				word = strtok(0, " ()\n\t;");
-				tokens.push_back({ DATABASE_NAME, word });
+				add_new_token(tokens, DATABASE_NAME, word);
 			}
 			else if (strcmp(word, "table") == 0)
 			{
-				tokens.push_back({ CREATE_TABLE_STATEMENT, "" });
+				add_new_token(tokens, CREATE_TABLE_STATEMENT, "");
 				word = strtok(0, " ()\n\t;");
-				tokens.push_back({ TABLE_NAME, word });
+				add_new_token(tokens, TABLE_NAME, word);
 
 				word = strtok(0, " ()\n\t,");
 				while (word != 0 && strcmp(word, ";") != 0)
 				{
-					tokens.push_back({ COLUMN_NAME, word });
+					add_new_token(tokens, COLUMN_NAME, word);
 					word = strtok(0, " ()\n\t,");
-					tokens.push_back({ COLUMN_TYPE, word });
+					add_new_token(tokens, COLUMN_TYPE, word);
 					word = strtok(0, " ()\n\t,");
 				}
 			}
 			else
-				tokens.push_back({ UNRECOGNIZED, word });
+				add_new_token(tokens, UNRECOGNIZED, word);
 		}
 		else if (strcmp(word, "describe") == 0)
 		{
-			tokens.push_back({	DESCRIBE_STATEMENT, "" });
+			add_new_token(tokens, DESCRIBE_STATEMENT, "");
 			word = strtok(0, " ()\n\t;");
-			tokens.push_back({ TABLE_NAME, word });
+			add_new_token(tokens, TABLE_NAME, word);
 		}
 		else if (strcmp(word, "select") == 0)
 		{
-			tokens.push_back({ SELECT_STATEMENT, "" });
+			add_new_token(tokens, SELECT_STATEMENT, "");
 			word = strtok(0, " ()\n\t;");
 			while (word && strcmp(word, "from") != 0)
 			{
-				tokens.push_back({ COLUMN_NAME, word });
+				add_new_token(tokens, COLUMN_NAME, word);
 				word = strtok(0, " ()\n\t;");
 			}
 			word = strtok(0, " ()\n\t;");
-			tokens.push_back({ TABLE_NAME, word });
+			add_new_token(tokens, TABLE_NAME, word);
 
 			word = strtok(0, " ()\n\t;");
 			if (word != 0 && strcmp(word, "where") == 0)
 			{
 				word = strtok(0, " ");
-				tokens.push_back({ WHERE_CLAUSE, word });
+				add_new_token(tokens, WHERE_CLAUSE, word);
 			}
 		}
 		else if (strcmp(word, "insert") == 0)
 		{
-			tokens.push_back({ INSERT_STATEMENT, "" });
+			add_new_token(tokens, INSERT_STATEMENT, "");
 			
 			word = strtok(0, " ()\n\t;");
 			if (strcmp(word, "into") != 0)
 			{
-				tokens.push_back({ UNRECOGNIZED, word });
+				add_new_token(tokens, UNRECOGNIZED, word);
 				continue;
 			}
 
 			word = strtok(0, " ()\n\t;");
-			tokens.push_back({ TABLE_NAME, word });
+			add_new_token(tokens, TABLE_NAME, word);
 
 			word = strtok(0, " ()\n\t;,");
 			while (word && strcmp(word, "values") != 0)
 			{
-				tokens.push_back({ COLUMN_NAME, word });
+				add_new_token(tokens, COLUMN_NAME, word);
 				word = strtok(0, " ()\n\t;,");
 			}
 
 			word = strtok(0, " ()\n\t;,\'");
 			while (word)
 			{
-				tokens.push_back({ VALUE, word });
+				add_new_token(tokens, VALUE, word);
 				word = strtok(0, " ()\n\t;,\'");
 			}
 		}
 		else if (strcmp(word, "delete") == 0)
 		{
-			tokens.push_back({ DELETE_STATEMENT, "" });
+			add_new_token(tokens, DELETE_STATEMENT, "");
 			
 			word = strtok(0, " ()\n\t;");
 			if (strcmp(word, "from") != 0)
 			{
-				tokens.push_back({ UNRECOGNIZED, word });
+				add_new_token(tokens, UNRECOGNIZED, word);
 				continue;
 			}
 
 			word = strtok(0, " ()\n\t;");
-			tokens.push_back({ TABLE_NAME, word });
+			add_new_token(tokens, TABLE_NAME, word);
 
 			word = strtok(0, " ()\n\t;");
 			if (word != 0 && strcmp(word, "where") == 0)
 			{
 				word = strtok(0, " ");
-				tokens.push_back({ WHERE_CLAUSE, word });
+				add_new_token(tokens, WHERE_CLAUSE, word);
 			}
 		}
 		else if (strcmp(word, "update") == 0)
 		{
-			tokens.push_back({ UPDATE_STATEMENT, "" });
+			add_new_token(tokens, UPDATE_STATEMENT, "");
 			
 			word = strtok(0, " ()\n\t;");
-			tokens.push_back({ TABLE_NAME, word });
+			add_new_token(tokens, TABLE_NAME, word);
 
 			word = strtok(0, " ()\n\t;");
 			if (strcmp(word, "set") != 0)
 			{
-				tokens.push_back({ UNRECOGNIZED, word });
+				add_new_token(tokens, UNRECOGNIZED, word);
 				continue;
 			}
 
 			word = strtok(0, " ()\n\t;,=");
 			while (word && strcmp(word, "where") != 0)
 			{
-				tokens.push_back({ COLUMN_NAME, word });
+				add_new_token(tokens, COLUMN_NAME, word);
 				
 				word = strtok(0, " ()\n\t;,=\'");
-				tokens.push_back({ VALUE, word });
+				add_new_token(tokens, VALUE, word);
 
 				word = strtok(0, " ()\n\t;,\'");
 			}
@@ -171,14 +179,14 @@ std::vector<Token> lex(std::string& query)
 			if (word != 0 && strcmp(word, "where") == 0)
 			{
 				word = strtok(0, " ");
-				tokens.push_back({ WHERE_CLAUSE, word });
+				add_new_token(tokens, WHERE_CLAUSE, word);
 			}
 			else
-				tokens.push_back({ UNRECOGNIZED, word });
+				add_new_token(tokens, UNRECOGNIZED, word);
 		}
 		else
 		{
-			tokens.push_back({ UNRECOGNIZED, word });
+			add_new_token(tokens, UNRECOGNIZED, word);
 		}
 
 		word = strtok(0, " ()\n\t;");
