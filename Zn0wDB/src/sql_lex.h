@@ -4,6 +4,11 @@
 #include <vector>
 
 
+const char* reserved_words[] = {
+	"create", "database", "table", "describe", "select", "insert", "delete", "update", "drop", "alter", "where",
+	"from", "set", "into"
+};
+
 enum TokenType
 {
 	CREATE_DATABASE_STATEMENT,
@@ -33,10 +38,22 @@ struct Token
 };
 
 
+bool is_reserved_word(const char* literal)
+{
+	int reserved_words_count = sizeof(reserved_words) / sizeof(char*);
+	
+	for (int i = 0; i < reserved_words_count; i++)
+		if (strcmp(literal, reserved_words[i]) == 0)
+			return true;
+	return false;
+}
+
 void add_new_token(std::vector<Token>& tokens, TokenType type, const char* literal)
 {
 	if (literal == 0)
 		tokens.push_back({ UNRECOGNIZED, "" });
+	else if (is_reserved_word(literal))
+		tokens.push_back({ UNRECOGNIZED, "" });	// NOTE: maybe there will be a special token type
 	else
 		tokens.push_back({ type, literal });
 }
